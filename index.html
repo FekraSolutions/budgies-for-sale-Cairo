@@ -19,7 +19,7 @@
       justify-content: space-between;
       align-items: center;
       padding: 10px 20px;
-      background-color: #00a884;
+      background: linear-gradient(90deg, #d4ed91, #a6d46d); /* لون ورقة محترقة بالشمس */
       color: white;
     }
 
@@ -32,16 +32,36 @@
     }
 
     nav.desktop a,
-    nav.mobile a {
+    nav.mobile-menu a {
       color: white;
       text-decoration: none;
       margin: 0 10px;
       font-weight: bold;
+      display: block;
     }
 
     nav.mobile {
-      display: flex;
-      gap: 10px;
+      position: relative;
+    }
+
+    .menu-toggle {
+      font-size: 24px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .mobile-menu {
+      display: none;
+      position: absolute;
+      top: 40px;
+      right: 0;
+      background-color: #00a884;
+      padding: 10px;
+      border-radius: 5px;
+    }
+
+    .mobile-menu.show {
+      display: block;
     }
 
     @media(min-width: 768px) {
@@ -51,6 +71,10 @@
 
       nav.mobile {
         display: none;
+      }
+
+      nav.desktop a {
+        margin: 0 10px;
       }
     }
 
@@ -95,7 +119,7 @@
 <body>
 
   <header>
-    <img src="images/logo.png" alt="شعار بيع بادجي في القاهرة والجيزة">
+    <!-- Inverted: اللوجو على الشمال والقائمة على اليمين -->
     <nav class="desktop">
       <a href="#">عربة الشراء</a>
       <a href="#">كل المنتجات</a>
@@ -104,8 +128,16 @@
       <a href="#">تواصل معنا</a>
     </nav>
     <nav class="mobile">
-      <span>☰</span>
+      <span class="menu-toggle" onclick="toggleMenu()">☰</span>
+      <div class="mobile-menu" id="mobileMenu">
+        <a href="#">عربة الشراء</a>
+        <a href="#">كل المنتجات</a>
+        <a href="#">المقالات</a>
+        <a href="#">تعرف علينا</a>
+        <a href="#">تواصل معنا</a>
+      </div>
     </nav>
+    <img src="images/logo.png" alt="شعار بيع بادجي في القاهرة والجيزة">
   </header>
 
   <main>
@@ -123,22 +155,29 @@
   </main>
 
   <script>
+    // سلايدر
     let currentIndex = 0;
     const slides = document.getElementById('slideBox');
+    const totalSlides = slides.children.length;
 
     function showSlide(index) {
-      const slideWidth = slides.clientWidth / 3;
-      slides.style.transform = 'translateX(' + (-slideWidth * index) + 'px)';
+      slides.style.transform = 'translateX(' + (-100 * index) + '%)';
     }
 
     function nextSlide() {
-      currentIndex = (currentIndex + 1) % 3;
+      currentIndex = (currentIndex + 1) % totalSlides;
       showSlide(currentIndex);
     }
 
     function prevSlide() {
-      currentIndex = (currentIndex - 1 + 3) % 3;
+      currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
       showSlide(currentIndex);
+    }
+
+    // قائمة الموبايل
+    function toggleMenu() {
+      const menu = document.getElementById('mobileMenu');
+      menu.classList.toggle('show');
     }
   </script>
 
