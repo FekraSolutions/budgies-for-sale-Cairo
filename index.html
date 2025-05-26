@@ -3,157 +3,143 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="بيع بادجي في القاهرة والجيزة - طيور زينة صغيرة وجميلة مع توصيل سريع للمنازل.">
+  <meta name="keywords" content="بيع بادجي, طيور بادجي, طيور زينة, بادجي للبيع, القاهرة, الجيزة, بيع بادجي في القاهرة والجيزة">
+  <meta name="author" content="Fekra! Business Solutions">
   <title>بيع بادجي في القاهرة والجيزة</title>
-  <meta name="description" content="أفضل مكان لشراء البادجي عمر شهر إلى شهرين وتوصيل سريع داخل القاهرة والجيزة.">
-  <meta name="keywords" content="بيع بادجي في القاهرة, بيع بادجي في الجيزة, طيور زينة, بادجي صغير للبيع, petstore cairo">
   <style>
     body {
       margin: 0;
-      font-family: 'Arial', sans-serif;
-      background-color: #f9f9f9;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #fefefe;
     }
 
     header {
-      background-color: #ffffff;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 15px 20px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      padding: 10px 20px;
+      background-color: #00a884;
+      color: white;
     }
 
-    .logo {
-      width: 50px;
+    header img {
       height: 50px;
-      background-image: url('logo.png'); /* ضع اسم اللوجو هنا */
-      background-size: contain;
-      background-repeat: no-repeat;
-      background-position: center;
     }
 
-    nav {
-      display: flex;
-      gap: 20px;
+    nav.desktop {
+      display: none;
     }
 
-    nav a {
+    nav.desktop a,
+    nav.mobile a {
+      color: white;
       text-decoration: none;
-      color: #333;
+      margin: 0 10px;
       font-weight: bold;
     }
 
-    .menu-toggle {
-      display: none;
-      font-size: 24px;
-      cursor: pointer;
+    nav.mobile {
+      display: flex;
+      gap: 10px;
     }
 
-    @media (max-width: 768px) {
-      nav {
+    @media(min-width: 768px) {
+      nav.desktop {
+        display: flex;
+      }
+
+      nav.mobile {
         display: none;
       }
-      .menu-toggle {
-        display: block;
-      }
     }
 
-    .slideshow-container {
+    .slider {
       max-width: 100%;
+      height: 400px;
       position: relative;
-      margin: auto;
       overflow: hidden;
+      margin: 20px auto;
     }
 
-    .slide {
-      display: none;
+    .slides {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+      width: 300%;
+    }
+
+    .slides img {
       width: 100%;
+      height: 400px;
+      object-fit: cover;
     }
 
-    .slide img {
-      width: 100%;
-      height: auto;
-      object-fit: contain; /* يمنع تكبير الصورة أو اقتطاعها */
-      display: block;
-      margin: auto;
-    }
-
-    .active {
-      display: block !important;
-    }
-
-    .prev, .next {
-      cursor: pointer;
+    .controls {
       position: absolute;
       top: 50%;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
       transform: translateY(-50%);
-      width: auto;
-      padding: 10px;
-      color: white;
-      font-weight: bold;
-      font-size: 24px;
-      background-color: rgba(0,0,0,0.5);
-      border-radius: 0 5px 5px 0;
-      user-select: none;
-      z-index: 1;
     }
 
-    .next {
-      right: 0;
-      border-radius: 5px 0 0 5px;
+    .controls span {
+      background: rgba(0,0,0,0.4);
+      color: white;
+      padding: 10px;
+      cursor: pointer;
+      user-select: none;
     }
   </style>
 </head>
 <body>
 
   <header>
-    <div class="logo"></div>
-    <span class="menu-toggle">☰</span>
-    <nav>
+    <img src="images/logo.png" alt="شعار بيع بادجي في القاهرة والجيزة">
+    <nav class="desktop">
       <a href="#">عربة الشراء</a>
       <a href="#">كل المنتجات</a>
       <a href="#">المقالات</a>
       <a href="#">تعرف علينا</a>
       <a href="#">تواصل معنا</a>
     </nav>
+    <nav class="mobile">
+      <span>☰</span>
+    </nav>
   </header>
 
   <main>
-    <div class="slideshow-container">
-      <div class="slide active">
-        <img src="images/slide1.jpg" alt="بادجي للبيع 1">
+    <div class="slider">
+      <div class="slides" id="slideBox">
+        <img src="images/slide1.jpg" alt="بادجي للبيع في القاهرة">
+        <img src="images/slide2.jpg" alt="بيع طيور زينة">
+        <img src="images/slide3.jpg" alt="بادجي صغير للبيع">
       </div>
-      <div class="slide">
-        <img src="images/slide2.jpg" alt="بادجي للبيع 2">
+      <div class="controls">
+        <span onclick="prevSlide()">&#10094;</span>
+        <span onclick="nextSlide()">&#10095;</span>
       </div>
-      <div class="slide">
-        <img src="images/slide3.jpg" alt="بادجي للبيع 3">
-      </div>
-
-      <a class="prev" onclick="changeSlide(-1)">&#10094;</a>
-      <a class="next" onclick="changeSlide(1)">&#10095;</a>
     </div>
   </main>
 
   <script>
-    let slideIndex = 0;
-    const slides = document.getElementsByClassName("slide");
+    let currentIndex = 0;
+    const slides = document.getElementById('slideBox');
 
-    function showSlide(n) {
-      for (let i = 0; i < slides.length; i++) {
-        slides[i].classList.remove("active");
-      }
-      slideIndex = (n + slides.length) % slides.length;
-      slides[slideIndex].classList.add("active");
+    function showSlide(index) {
+      const slideWidth = slides.clientWidth / 3;
+      slides.style.transform = 'translateX(' + (-slideWidth * index) + 'px)';
     }
 
-    function changeSlide(n) {
-      showSlide(slideIndex + n);
+    function nextSlide() {
+      currentIndex = (currentIndex + 1) % 3;
+      showSlide(currentIndex);
     }
 
-    // Optional: Auto slide every 6 seconds
-    setInterval(() => {
-      changeSlide(1);
-    }, 6000);
+    function prevSlide() {
+      currentIndex = (currentIndex - 1 + 3) % 3;
+      showSlide(currentIndex);
+    }
   </script>
 
 </body>
