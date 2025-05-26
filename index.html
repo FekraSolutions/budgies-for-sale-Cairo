@@ -51,14 +51,32 @@
     }
 
     .mobile-menu {
-      display: none;
-      position: absolute;
-      top: 40px;
-      right: 0;
-      background-color: linear-gradient(90deg, #d4ed91, #a6d46d);
-      padding: 10px;
-      border-radius: 5px;
-    }
+  display: none;
+  position: absolute;
+  top: 60px;
+  right: 20px;
+  background: linear-gradient(135deg, #f4fbd2, #d0f0a5); /* lighter than header green */
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 9999; /* stays above everything */
+  flex-direction: column;
+  gap: 10px;
+}
+
+.mobile-menu a {
+  color: #005c36;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 8px 12px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.mobile-menu a:hover {
+  background-color: rgba(0, 88, 44, 0.1); /* subtle darker hover */
+}
+
 
     .mobile-menu.show {
       display: block;
@@ -129,13 +147,13 @@
     </nav>
     <nav class="mobile">
       <span class="menu-toggle" onclick="toggleMenu()">☰</span>
-      <div class="mobile-menu" id="mobileMenu">
-        <a href="#">عربة الشراء</a>
-        <a href="#">كل المنتجات</a>
-        <a href="#">المقالات</a>
-        <a href="#">تعرف علينا</a>
-        <a href="#">تواصل معنا</a>
-      </div>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#">عربة الشراء</a>
+  <a href="#">كل المنتجات</a>
+  <a href="#">المقالات</a>
+  <a href="#">تعرف علينا</a>
+  <a href="#">تواصل معنا</a>
+</div>
     </nav>
     <img src="images/logo.png" alt="شعار بيع بادجي في القاهرة والجيزة">
   </header>
@@ -179,6 +197,17 @@
       const menu = document.getElementById('mobileMenu');
       menu.classList.toggle('show');
     }
+    const mobileMenuToggle = document.querySelector('nav.mobile span');
+const mobileMenu = document.getElementById('mobileMenu');
+
+mobileMenuToggle.addEventListener('click', () => {
+  if (mobileMenu.style.display === 'flex') {
+    mobileMenu.style.display = 'none';
+  } else {
+    mobileMenu.style.display = 'flex';
+  }
+});
+
   </script>
 
 </body>
