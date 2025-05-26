@@ -64,14 +64,23 @@
   gap: 10px;
 }
 
-.mobile-menu a {
-  color: #005c36;
-  text-decoration: none;
-  font-weight: bold;
-  padding: 8px 12px;
-  border-radius: 5px;
-  transition: background-color 0.3s ease;
+.mobile-menu {
+  display: none;
+  position: absolute;
+  top: 60px;
+  right: 20px;
+  background: linear-gradient(135deg, #f4fbd2, #d0f0a5);
+  padding: 10px 15px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 9999;
+  flex-direction: column;
+  gap: 10px;
+  white-space: nowrap;       /* 💡 Prevents text from wrapping */
+  width: max-content;         /* 💡 Shrinks/grows based on content width */
+  min-width: 160px;           /* 💡 Ensures it's not too narrow either */
 }
+
 
 .mobile-menu a:hover {
   background-color: rgba(0, 88, 44, 0.1); /* subtle darker hover */
